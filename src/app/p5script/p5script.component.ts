@@ -23,22 +23,21 @@ export class P5scriptComponent implements OnInit {
 
   @Input() Mn: ProcessedNode[];
   @Input() Md: ProcessedNode[];
-
+  @Input() drawParams;
 
   private sketch = (p: any) => {
-
-    let magnifier = 5;
 
     p.setup = () => {
       let canvas = p.createCanvas(800, 600);
       canvas.parent("canvasParent");
       p.textAlign(p.CENTER);
-      console.log(this.Mn);
+      console.log(this.drawParams);
     };
+    
     
     p.draw = () => {
       p.clear()
-      p.translate(200, 0);
+      p.translate(this.drawParams.xOffset, this.drawParams.yOffset);
       p.background(255);
       for (let n of this.Mn){
         p.drawNodeN(n);
@@ -48,14 +47,16 @@ export class P5scriptComponent implements OnInit {
       }
     };
 
+    // draws the name matched nodes in green
     p.drawNodeN = (node) => {
       p.stroke(0, 150, 0);
-      p.text(node.name, node.x*magnifier, node.y*magnifier);
+      p.text(node.name, node.x*this.drawParams.magnify, node.y*this.drawParams.magnify);
     }
 
+    //draws the distance nodes in blue with the distance printed next to them
     p.drawNodeD = (node) => {
       p.stroke(0, 0, 150);
-      p.text(node.name+"("+parseFloat(node.distance).toFixed(1)+")", node.x*magnifier, node.y*magnifier);
+      p.text(node.name+"("+parseFloat(node.distance).toFixed(1)+")", node.x*this.drawParams.magnify, node.y*this.drawParams.magnify);
     }
   }
 

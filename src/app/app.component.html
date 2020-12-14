@@ -1,20 +1,33 @@
 <div fxLayout="row">
-  <div fxFlex="20">
+  <div fxFlex="20" style="padding: 20px;">
     <mat-form-field>
-      <mat-label>File name:</mat-label>
+      <mat-label>File Name</mat-label>
       <input matInput [(ngModel)]="params.fileName" (change)="onFileNameChange()">
     </mat-form-field><br>
+    <div style="color: red; font-size: small;" *ngIf=errors.file>{{errors.file}}</div>
     <mat-form-field>
-      <mat-label>Station name:</mat-label>
+      <mat-label>Station Name</mat-label>
       <input matInput [(ngModel)]="params.station" (change)="onStationNameChange()">
     </mat-form-field><br>
     <mat-form-field>
-      <mat-label>Distance:</mat-label>
+      <mat-label>Distance</mat-label>
       <input matInput type="number" [(ngModel)]="params.distance" (change)="onDistanceChange()">
+    </mat-form-field><br>
+    <mat-form-field>
+      <mat-label>Magnify</mat-label>
+      <input matInput type="number" [(ngModel)]="drawParams.magnify">
+    </mat-form-field><br>
+    <mat-form-field>
+      <mat-label>X Offset</mat-label>
+      <input matInput type="number" [(ngModel)]="drawParams.xOffset">
+    </mat-form-field><br>
+    <mat-form-field>
+      <mat-label>Y Offset</mat-label>
+      <input matInput type="number" [(ngModel)]="drawParams.yOffset">
     </mat-form-field>
   </div>
   <div fxFlex="80">
-      <app-p5script [Mn]=Mn [Md]=Md></app-p5script>
+      <app-p5script [Mn]=Mn [Md]=Md [drawParams]=drawParams></app-p5script>
   </div>
 </div>
 
